@@ -29,7 +29,8 @@ $ while read -r line; do echo "$line" | wc -m; done <README.md | sparkline
 Here's the hourly temperatures forecasted for my area (via [DarkSky][darksky-api]):
 
 ```console
-$ sparkline $(curl -s https://api.darksky.net/forecast/$API_KEY/38.907,-77.036 | jq -r '.hourly.data|.[].temperature' | paste -sd" " -)
+$ sparkline $(curl -s https://api.darksky.net/forecast/$API_KEY/38.907,-77.036 \
+    | jq -r '.hourly.data|.[].temperature' | paste -sd" " -)
 ▁▁▁▁▁▁▁▁▁▁▁▂▂▂▃▄▄▅▅▅▄▄▃▃▃▃▃▃▃▃▃▂▂▂▂▃▄▅▆▇▇█▇▇▆▅▄▄▄
 ```
 
