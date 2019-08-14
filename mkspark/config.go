@@ -1,18 +1,18 @@
 package main
 
-// A Config is a configuration for displaying a series as a sparkline. Configs
-// should specify either the Bins OR the Span argument. If both Bins
-// and Span are provided Span will be used.
-type Config struct {
+// A SeriesConfig is a configuration for displaying a series as a sparkline.
+// Configs should specify either the Bins OR the Span argument. If both Bins and
+// Span are provided Span will be used.
+type SeriesConfig struct {
 	// Start and End values of the series. Values that lay outside of [start,
 	// end] are discarded. If unspecified, Start and End will be extrapolated
 	// from the input data prior to discretizing.
-	Start *int
-	End   *int
+	Start *float64
+	End   *float64
 
 	// Number of bins to discretize data into. Bins must be non-negative. If
 	// Span is nil, Bins will effectively be the length of the sparklines
-	// created using the Config.
+	// created using the config.
 	Bins int
 
 	// Span is the size of each bin. If non-nil, Span will take precident over
@@ -21,9 +21,9 @@ type Config struct {
 	Span *float64
 }
 
-// DefaultConfig returns a default Config.
-func DefaultConfig() *Config {
-	return &Config{
+// DefaultSeriesConfig returns a default SeriesConfig.
+func DefaultSeriesConfig() *SeriesConfig {
+	return &SeriesConfig{
 		Start: nil,
 		End:   nil,
 		Bins:  20,
@@ -31,10 +31,10 @@ func DefaultConfig() *Config {
 	}
 }
 
-// MergeConfig returns the result of two Config objects merged together.
-// Precedence is set from right to left. MergeConfig should not check for Config
-// validity.
-func MergeConfig(a, b *Config) (c *Config) {
+// MergeSeriesConfig returns the result of two SeriesConfig objects merged
+// together. Precedence is set from right to left. MergeSeriesConfig should not
+// check for config validity.
+func MergeSeriesConfig(a, b *SeriesConfig) (c *SeriesConfig) {
 	if a == nil {
 		return b
 	}
@@ -42,7 +42,7 @@ func MergeConfig(a, b *Config) (c *Config) {
 		return a
 	}
 
-	// duplicate the data of Config a into c, to then merge Config b onto
+	// duplicate the data of config a into c, to then merge config b onto
 	*c = *a
 
 	if b.Bins > 0 {

@@ -1,6 +1,12 @@
 .DS_Store
 .idea
 .vscode
+.AppleDouble
+.LSOverride
+._*
 
-sparkline*
 *.exe
+mkspark$
+mkbar$
+
+*.out
